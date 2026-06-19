@@ -5,159 +5,73 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yuk Belajar Gelombang Bunyi!</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
 html, body { height: 100%; margin: 0; }
 * { font-family: 'Nunito', sans-serif; }
+body { font-size: 18px; }
 
-.sound-indicator {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  background: #22c55e;
-  border-radius: 50%;
-  animation: soundPulse 0.6s ease-out;
-}
-
-@keyframes soundPulse {
-  0% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(1.8); opacity: 0; }
-}
-
-@keyframes waveMove {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(-20px); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12px); }
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-@keyframes vibrate {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
-}
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes starBurst {
-  0% { transform: scale(0) rotate(0deg); opacity: 1; }
-  100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
-}
-@keyframes bounceIn {
-  0% { transform: scale(0.3); opacity: 0; }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
-}
-@keyframes slideWave {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-@keyframes earPulse {
-  0%, 100% { transform: scale(1); }
-  30% { transform: scale(1.05); }
-  60% { transform: scale(0.97); }
-}
+@keyframes waveMove { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-20px); } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@keyframes vibrate { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
+@keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+@keyframes slideWave { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+@keyframes earPulse { 0%, 100% { transform: scale(1); } 30% { transform: scale(1.05); } 60% { transform: scale(0.97); } }
+@keyframes travelWave { 0% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -40; } }
 
 .animate-float { animation: float 3s ease-in-out infinite; }
 .animate-pulse-slow { animation: pulse 2s ease-in-out infinite; }
 .animate-vibrate { animation: vibrate 0.15s ease-in-out infinite; }
-.animate-fadein { animation: fadeInUp 0.6s ease-out forwards; }
 .animate-bouncein { animation: bounceIn 0.5s ease-out; }
-.animate-wave { animation: waveMove 2s ease-in-out infinite; }
 .animate-ear { animation: earPulse 1.5s ease-in-out infinite; }
+.travel-wave path { animation: travelWave 1.2s linear infinite; }
 
-.wave-line {
-  position: absolute;
-  height: 4px;
-  border-radius: 9999px;
-  animation: slideWave 3s linear infinite;
-}
+.wave-line { position: absolute; height: 4px; border-radius: 9999px; animation: slideWave 3s linear infinite; }
 
-.section-card {
-  background: white;
-  border-radius: 24px;
-  padding: 2rem;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  margin-bottom: 2rem;
-}
+.section-card { background: white; border-radius: 24px; padding: 2rem; box-shadow: 0 4px 24px rgba(0,0,0,0.07); margin-bottom: 2rem; }
 
-.quiz-btn {
-  transition: all 0.2s;
-  cursor: pointer;
-}
+.quiz-btn { transition: all 0.2s; cursor: pointer; }
 .quiz-btn:hover { transform: scale(1.04); }
 .quiz-btn:active { transform: scale(0.97); }
 .quiz-btn.correct { background: #22c55e !important; color: white !important; }
 .quiz-btn.wrong { background: #ef4444 !important; color: white !important; }
 
-.nav-dot {
-  width: 12px; height: 12px; border-radius: 50%;
-  background: #cbd5e1; cursor: pointer; transition: all 0.3s;
-}
+.nav-dot { width: 12px; height: 12px; border-radius: 50%; background: #cbd5e1; cursor: pointer; transition: all 0.3s; }
 .nav-dot.active { background: #3b82f6; width: 32px; border-radius: 6px; }
 
-.step-card {
-  border-left: 4px solid;
-  padding: 1rem 1.25rem;
-  border-radius: 0 16px 16px 0;
-  margin-bottom: 0.75rem;
-}
+.step-card { border-left: 4px solid; padding: 1rem 1.25rem; border-radius: 0 16px 16px 0; margin-bottom: 0.75rem; }
 
-.medium-card {
-  border-radius: 20px;
-  padding: 1.5rem;
-  text-align: center;
-  transition: transform 0.3s;
-  cursor: pointer;
-}
+.medium-card { border-radius: 20px; padding: 1.5rem; text-align: center; transition: transform 0.3s; cursor: pointer; }
 .medium-card:hover { transform: translateY(-6px); }
+
+.video-frame { position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 16px; overflow: hidden; background: #0f172a; }
+.video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 body::-webkit-scrollbar { width: 8px; }
 body::-webkit-scrollbar-track { background: #f1f5f9; }
 body::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
 </style>
   <script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        sky1: '#3b82f6',
-        green1: '#22c55e',
-        yellow1: '#facc15',
-        orange1: '#f97316',
-        pink1: '#ec4899',
-        purple1: '#8b5cf6',
-      }
-    }
-  }
-}
+tailwind.config = { theme: { extend: { colors: { sky1:'#3b82f6', green1:'#22c55e', yellow1:'#facc15', orange1:'#f97316', pink1:'#ec4899', purple1:'#8b5cf6' } } } }
 </script>
-  <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full">
   <div id="app" class="h-full w-full overflow-auto" style="background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 30%, #fefce8 60%, #fce7f3 100%);">
-   <!-- NAVIGATION -->
-   <nav id="topNav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border-bottom: 3px solid #3b82f6;">
+   <nav id="topNav" class="fixed top-0 left-0 w-full z-50" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(10px); border-bottom: 3px solid #3b82f6;">
     <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
      <div class="flex items-center gap-2">
       <span class="text-2xl">🔊</span> <span class="font-black text-sky1 text-lg hidden sm:inline">Gelombang Bunyi</span>
      </div>
-     <div class="flex gap-1.5 items-center" id="navDots"></div><button onclick="scrollToSection(0)" class="bg-sky1 text-white px-3 py-1.5 rounded-full text-sm font-bold hover:bg-blue-600 transition">⬆ Atas</button>
+     <div class="flex gap-1.5 items-center" id="navDots"></div>
+     <button onclick="scrollToSection(0)" class="bg-sky1 text-white px-3 py-1.5 rounded-full text-sm font-bold hover:bg-blue-600 transition">⬆ Atas</button>
     </div>
-   </nav><!-- SECTIONS CONTAINER -->
+   </nav>
+
    <div class="max-w-4xl mx-auto px-4 pt-20 pb-12">
+
     <!-- 1. HERO -->
     <section id="sec-0" class="section-card text-center relative overflow-hidden" style="background: linear-gradient(135deg, #3b82f6, #06b6d4); min-height: 400px;">
-     <!-- Animated waves background -->
      <div class="absolute inset-0 overflow-hidden opacity-20">
       <div class="wave-line bg-white" style="top:20%; width:200px; animation-delay:0s;"></div>
       <div class="wave-line bg-white" style="top:40%; width:160px; animation-delay:0.8s;"></div>
@@ -165,602 +79,406 @@ tailwind.config = {
       <div class="wave-line bg-white" style="top:80%; width:180px; animation-delay:2.4s;"></div>
      </div>
      <div class="relative z-10 py-8">
-      <div class="text-6xl mb-4 animate-float">
-       🎵
-      </div>
-      <h1 id="heroTitle" class="text-3xl sm:text-5xl font-black text-white mb-3 drop-shadow-lg">Yuk Belajar Gelombang Bunyi!</h1>
-      <p id="heroSubtitle" class="text-lg sm:text-xl text-blue-100 mb-6 font-semibold">Bagaimana suara bisa kita dengar?</p>
+      <div class="text-6xl mb-4 animate-float">🎵</div>
+      <h1 class="text-4xl sm:text-5xl font-black text-white mb-3 drop-shadow-lg">Yuk Belajar Gelombang Bunyi!</h1>
+      <p class="text-xl sm:text-2xl text-blue-100 mb-6 font-semibold">Bagaimana suara bisa kita dengar?</p>
       <div class="flex justify-center gap-4 text-5xl mb-8">
-       <span class="animate-float" style="animation-delay:0s;">🎸</span> <span class="animate-float" style="animation-delay:0.3s;">🔔</span> <span class="animate-float" style="animation-delay:0.6s;">🗣️</span> <span class="animate-float" style="animation-delay:0.9s;">🎧</span>
-      </div><!-- SVG Wave Animation -->
-      <svg class="mx-auto mb-6 animate-wave" width="280" height="60" viewbox="0 0 280 60">
-       <path d="M0,30 Q35,5 70,30 Q105,55 140,30 Q175,5 210,30 Q245,55 280,30" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" /> <path d="M0,30 Q35,10 70,30 Q105,50 140,30 Q175,10 210,30 Q245,50 280,30" stroke="rgba(255,255,255,0.4)" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="8 8" />
-      </svg><button onclick="scrollToSection(1)" class="bg-yellow1 text-gray-800 px-8 py-4 rounded-full text-xl font-black hover:bg-yellow-300 transition transform hover:scale-105 shadow-lg animate-pulse-slow"> 🚀 Mulai Belajar! </button>
+       <span class="animate-float" style="animation-delay:0s;">🎸</span>
+       <span class="animate-float" style="animation-delay:0.3s;">🔔</span>
+       <span class="animate-float" style="animation-delay:0.6s;">🗣️</span>
+       <span class="animate-float" style="animation-delay:0.9s;">🎧</span>
+      </div>
+      <!-- Gelombang longitudinal (rapatan-renggangan) yang lebih jelas merepresentasikan gelombang bunyi -->
+      <svg class="mx-auto mb-6" width="300" height="90" viewBox="0 0 300 90">
+       <g class="travel-wave">
+        <path d="M0,45 Q7,10 14,45 Q21,80 28,45 Q35,10 42,45 Q49,80 56,45 Q63,10 70,45 Q77,80 84,45 Q91,10 98,45 Q105,80 112,45 Q119,10 126,45 Q133,80 140,45 Q147,10 154,45 Q161,80 168,45 Q175,10 182,45 Q189,80 196,45 Q203,10 210,45 Q217,80 224,45 Q231,10 238,45 Q245,80 252,45 Q259,10 266,45 Q273,80 280,45 Q287,10 294,45"
+         stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="6 4" />
+       </g>
+       <text x="150" y="82" font-size="13" fill="white" font-weight="800" text-anchor="middle">getaran merambat sebagai gelombang bunyi</text>
+      </svg>
+      <button onclick="scrollToSection(1)" class="bg-yellow1 text-gray-800 px-8 py-4 rounded-full text-xl font-black hover:bg-yellow-300 transition transform hover:scale-105 shadow-lg animate-pulse-slow"> 🚀 Mulai Belajar! </button>
      </div>
-    </section><!-- 2. CAPAIAN & TUJUAN -->
+    </section>
+
+    <!-- 2. CAPAIAN & TUJUAN -->
     <section id="sec-1" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">🎯</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-sky1 mt-2">Capaian &amp; Tujuan Pembelajaran</h2>
-      <p class="text-gray-500 mt-1 font-semibold">Setelah belajar ini, aku bisa:</p>
+      <h2 class="text-3xl sm:text-4xl font-black text-sky1 mt-2">Capaian &amp; Tujuan Pembelajaran</h2>
+      <p class="text-gray-500 mt-1 font-semibold text-lg">Setelah belajar ini, aku bisa:</p>
      </div>
      <div class="grid sm:grid-cols-2 gap-3">
-      <div class="flex items-start gap-3 bg-blue-50 rounded-2xl p-4 border-2 border-blue-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa menjelaskan apa itu bunyi dengan bahasa sendiri!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-green-50 rounded-2xl p-4 border-2 border-green-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa menyebutkan contoh bunyi sehari-hari!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-yellow-50 rounded-2xl p-4 border-2 border-yellow-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa menjelaskan sifat-sifat bunyi!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-pink-50 rounded-2xl p-4 border-2 border-pink-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa menjelaskan cara kerja telinga!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-purple-50 rounded-2xl p-4 border-2 border-purple-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa melakukan percobaan bunyi!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-orange-50 rounded-2xl p-4 border-2 border-orange-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa menganalisis perambatan bunyi!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-teal-50 rounded-2xl p-4 border-2 border-teal-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku bisa menyimpulkan bahan penyerap bunyi!</p>
-      </div>
-      <div class="flex items-start gap-3 bg-red-50 rounded-2xl p-4 border-2 border-red-100">
-       <span class="text-2xl mt-0.5">⭐</span>
-       <p class="font-bold text-gray-700">Aku peduli pada kesehatan telingaku!</p>
-      </div>
+      <div class="flex items-start gap-3 bg-blue-50 rounded-2xl p-4 border-2 border-blue-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa menjelaskan apa itu bunyi dengan bahasa sendiri!</p></div>
+      <div class="flex items-start gap-3 bg-green-50 rounded-2xl p-4 border-2 border-green-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa menyebutkan contoh bunyi sehari-hari!</p></div>
+      <div class="flex items-start gap-3 bg-yellow-50 rounded-2xl p-4 border-2 border-yellow-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa menjelaskan sifat-sifat bunyi!</p></div>
+      <div class="flex items-start gap-3 bg-pink-50 rounded-2xl p-4 border-2 border-pink-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa menjelaskan cara kerja telinga!</p></div>
+      <div class="flex items-start gap-3 bg-purple-50 rounded-2xl p-4 border-2 border-purple-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa melakukan percobaan bunyi!</p></div>
+      <div class="flex items-start gap-3 bg-orange-50 rounded-2xl p-4 border-2 border-orange-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa menganalisis perambatan bunyi!</p></div>
+      <div class="flex items-start gap-3 bg-teal-50 rounded-2xl p-4 border-2 border-teal-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku bisa menyimpulkan bahan penyerap bunyi!</p></div>
+      <div class="flex items-start gap-3 bg-red-50 rounded-2xl p-4 border-2 border-red-100"><span class="text-2xl mt-0.5">⭐</span><p class="font-bold text-gray-700 text-lg">Aku peduli pada kesehatan telingaku!</p></div>
      </div>
-    </section><!-- 3. MATERI 1: APA ITU BUNYI? -->
+    </section>
+
+    <!-- 3. MATERI 1: APA ITU BUNYI? -->
     <section id="sec-2" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">🔊</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-green1 mt-2">Materi 1: Apa itu Bunyi?</h2>
+      <h2 class="text-3xl sm:text-4xl font-black text-green1 mt-2">Materi 1: Apa itu Bunyi?</h2>
      </div>
      <div class="bg-green-50 rounded-2xl p-5 border-2 border-green-200 mb-5">
-      <p class="text-lg font-bold text-gray-800 text-center">💡 <strong>Bunyi</strong> adalah <span class="text-green1">getaran</span> yang merambat melalui medium dan bisa didengar oleh telinga kita!</p>
+      <p class="text-xl font-bold text-gray-800 text-center">💡 <strong>Bunyi</strong> adalah <span class="text-green1">getaran</span> yang merambat melalui medium dan bisa didengar oleh telinga kita!</p>
      </div>
      <div class="mb-5">
-      <h3 class="font-black text-gray-700 text-lg mb-3">🎵 Sumber Bunyi = Benda yang Bergetar</h3>
-      <p class="text-gray-600 mb-4 font-semibold">Semua bunyi berasal dari benda yang bergetar. Tanpa getaran, tidak ada bunyi!</p><!-- Vibration demo -->
+      <h3 class="font-black text-gray-700 text-xl mb-3">🎵 Sumber Bunyi = Benda yang Bergetar</h3>
+      <p class="text-gray-600 mb-4 font-semibold text-lg">Semua bunyi berasal dari benda yang bergetar. Tanpa getaran, tidak ada bunyi!</p>
       <div class="flex justify-center mb-4">
        <div class="text-center">
         <button id="vibrateBtn" onclick="toggleVibrate()" class="bg-green1 text-white px-6 py-3 rounded-full font-bold text-lg hover:bg-green-600 transition shadow-md"> ▶ Lihat Getaran </button>
         <div class="mt-4 flex justify-center gap-8">
-         <div class="text-center">
-          <div id="guitarVib" class="text-5xl">
-           🎸
-          </div>
-          <p class="text-sm font-bold mt-1 text-gray-600">Gitar</p>
-         </div>
-         <div class="text-center">
-          <div id="bellVib" class="text-5xl">
-           🔔
-          </div>
-          <p class="text-sm font-bold mt-1 text-gray-600">Lonceng</p>
-         </div>
-         <div class="text-center">
-          <div id="drumVib" class="text-5xl">
-           🥁
-          </div>
-          <p class="text-sm font-bold mt-1 text-gray-600">Drum</p>
-         </div>
+         <div class="text-center"><div id="guitarVib" class="text-5xl">🎸</div><p class="text-sm font-bold mt-1 text-gray-600">Gitar</p></div>
+         <div class="text-center"><div id="bellVib" class="text-5xl">🔔</div><p class="text-sm font-bold mt-1 text-gray-600">Lonceng</p></div>
+         <div class="text-center"><div id="drumVib" class="text-5xl">🥁</div><p class="text-sm font-bold mt-1 text-gray-600">Drum</p></div>
         </div>
        </div>
       </div>
      </div>
-     <h3 class="font-black text-gray-700 text-lg mb-3">📋 Contoh Bunyi Sehari-hari (Klik untuk dengar!):</h3>
+     <h3 class="font-black text-gray-700 text-xl mb-3">📋 Contoh Bunyi Sehari-hari (Klik untuk dengar!):</h3>
      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('chicken')">
-       <i data-lucide="speaker" style="width: 32px; height: 32px; margin: 0 auto 8px; color: #22c55e;"></i>
-       <p class="text-sm font-bold text-gray-600">Sound 1</p>
-      </div>
-      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('horn')">
-       <i data-lucide="speaker" style="width: 32px; height: 32px; margin: 0 auto 8px; color: #22c55e;"></i>
-       <p class="text-sm font-bold text-gray-600">Sound 2</p>
-      </div>
-      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('clap')">
-       <i data-lucide="speaker" style="width: 32px; height: 32px; margin: 0 auto 8px; color: #22c55e;"></i>
-       <p class="text-sm font-bold text-gray-600">Sound 3</p>
-      </div>
-      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('wave')">
-       <i data-lucide="speaker" style="width: 32px; height: 32px; margin: 0 auto 8px; color: #22c55e;"></i>
-       <p class="text-sm font-bold text-gray-600">Sound 4</p>
-      </div>
+      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('chicken')"><span class="text-4xl block mb-2">🐔</span><p class="text-sm font-bold text-gray-600">Ayam Berkokok</p></div>
+      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('horn')"><span class="text-4xl block mb-2">📯</span><p class="text-sm font-bold text-gray-600">Klakson Mobil</p></div>
+      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('clap')"><span class="text-4xl block mb-2">👏</span><p class="text-sm font-bold text-gray-600">Tepuk Tangan</p></div>
+      <div class="bg-white rounded-xl p-3 text-center border-2 border-green-100 hover:border-green-400 transition cursor-pointer" onclick="playSoundEffect('wave')"><span class="text-4xl block mb-2">🌊</span><p class="text-sm font-bold text-gray-600">Ombak Laut</p></div>
      </div>
-    </section><!-- 4. MATERI 2: SIFAT-SIFAT BUNYI -->
+    </section>
+
+    <!-- 4. MATERI 2: SIFAT-SIFAT BUNYI -->
     <section id="sec-3" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">✨</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-purple1 mt-2">Materi 2: Sifat-Sifat Bunyi</h2>
-     </div><!-- a. Merambat -->
+      <h2 class="text-3xl sm:text-4xl font-black text-purple1 mt-2">Materi 2: Sifat-Sifat Bunyi</h2>
+     </div>
+
      <div class="bg-purple-50 rounded-2xl p-5 border-2 border-purple-200 mb-4">
-      <h3 class="font-black text-purple1 text-xl mb-2">🌊 a. Bunyi Merambat</h3>
-      <p class="text-gray-700 font-semibold mb-3">Bunyi bisa merambat melalui <strong>udara</strong>, <strong>air</strong>, dan <strong>benda padat</strong>!</p>
+      <h3 class="font-black text-purple1 text-2xl mb-2">🌊 a. Bunyi Merambat</h3>
+      <p class="text-gray-700 font-semibold mb-3 text-lg">Bunyi bisa merambat melalui <strong>udara</strong>, <strong>air</strong>, dan <strong>benda padat</strong>!</p>
       <div class="flex justify-center">
-       <svg width="300" height="80" viewbox="0 0 300 80" class="animate-wave">
-        <text x="10" y="25" font-size="20">
-         🔔
-        </text> <line x1="45" y1="20" x2="260" y2="20" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="8 4" /> <text x="265" y="25" font-size="20">
-         👂
-        </text> <text x="100" y="55" font-size="12" fill="#8b5cf6" font-weight="bold">
-         gelombang bunyi →→→
-        </text>
+       <svg width="300" height="90" viewBox="0 0 300 90">
+        <text x="5" y="35" font-size="26">🔔</text>
+        <g class="travel-wave">
+         <path d="M50,30 Q57,15 64,30 Q71,45 78,30 Q85,15 92,30 Q99,45 106,30 Q113,15 120,30 Q127,45 134,30 Q141,15 148,30 Q155,45 162,30 Q169,15 176,30 Q183,45 190,30 Q197,15 204,30 Q211,45 218,30 Q225,15 232,30 Q239,45 246,30"
+          stroke="#8b5cf6" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="5 4"/>
+        </g>
+        <text x="260" y="35" font-size="26">👂</text>
+        <text x="148" y="65" font-size="13" fill="#8b5cf6" font-weight="bold" text-anchor="middle">gelombang bunyi merambat →</text>
        </svg>
       </div>
-     </div><!-- b. Memantul -->
+     </div>
+
      <div class="bg-blue-50 rounded-2xl p-5 border-2 border-blue-200 mb-4">
-      <h3 class="font-black text-sky1 text-xl mb-2">🏔️ b. Bunyi Memantul</h3>
-      <p class="text-gray-700 font-semibold mb-3">Bunyi bisa memantul jika mengenai benda keras. Contoh: <strong>Gema di dalam gua!</strong></p>
-      <div class="flex justify-center items-center gap-4">
-       <div class="text-center">
-        <span class="text-4xl">🗣️</span>
-        <p class="text-xs font-bold text-gray-500">Berteriak</p>
+      <h3 class="font-black text-sky1 text-2xl mb-2">🏔️ b. Bunyi Memantul</h3>
+      <p class="text-gray-700 font-semibold mb-3 text-lg">Bunyi bisa memantul jika mengenai benda keras. Ada dua jenis pantulan bunyi yang sering tertukar: <strong>gema</strong> dan <strong>gaung</strong>.</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+       <div class="bg-white rounded-2xl p-4 border-2 border-blue-200">
+        <p class="font-black text-sky1 text-lg mb-2">🗻 Gema</p>
+        <p class="text-gray-600 font-semibold text-base mb-2">Bunyi pantul yang terdengar <strong>jelas dan utuh</strong> setelah bunyi asli selesai diucapkan. Terjadi karena jarak ke dinding pemantul cukup jauh (misalnya lembah atau tebing).</p>
+        <div class="flex justify-center items-center gap-2 text-3xl"><span>🗣️</span><span class="text-blue-400 font-bold text-xl">→</span><span>⛰️</span><span class="text-blue-400 font-bold text-xl">→</span><span>👂</span></div>
+        <p class="text-center text-xs text-gray-500 font-semibold mt-1">Contoh: berteriak di lembah/ngarai</p>
        </div>
-       <div class="text-2xl text-blue-400 font-bold">
-        →→→
+       <div class="bg-white rounded-2xl p-4 border-2 border-blue-200">
+        <p class="font-black text-sky1 text-lg mb-2">🏛️ Gaung</p>
+        <p class="text-gray-600 font-semibold text-base mb-2">Bunyi pantul yang terdengar <strong>bersamaan/tumpang tindih</strong> dengan bunyi asli sehingga suara jadi tidak jelas. Terjadi di ruang sempit dengan dinding keras (misalnya gedung kosong atau gua kecil).</p>
+        <div class="flex justify-center items-center gap-2 text-3xl"><span>🗣️</span><span class="text-blue-400 font-bold text-xl">↔</span><span>🏚️</span></div>
+        <p class="text-center text-xs text-gray-500 font-semibold mt-1">Contoh: berbicara di aula/gedung kosong, gua sempit</p>
        </div>
-       <div class="text-center">
-        <span class="text-4xl">🏔️</span>
-        <p class="text-xs font-bold text-gray-500">Dinding gua</p>
-       </div>
-       <div class="text-2xl text-blue-400 font-bold">
-        ←←←
-       </div>
-       <div class="text-center">
-        <span class="text-4xl">👂</span>
-        <p class="text-xs font-bold text-gray-500">Gema!</p>
-       </div>
-      </div>
-     </div><!-- c. Diserap -->
-     <div class="bg-pink-50 rounded-2xl p-5 border-2 border-pink-200">
-      <h3 class="font-black text-pink1 text-xl mb-2">🧽 c. Bunyi Diserap</h3>
-      <p class="text-gray-700 font-semibold mb-3">Benda lunak bisa <strong>menyerap bunyi</strong>. Contoh: busa, kain, karpet.</p>
-      <div class="flex justify-center items-center gap-4">
-       <span class="text-4xl">🔊</span>
-       <div class="text-2xl text-pink-400 font-bold">
-        →→
-       </div>
-       <div class="bg-pink-200 rounded-xl px-4 py-3 text-center">
-        <span class="text-3xl">🧽</span>
-        <p class="text-xs font-bold text-pink-600">Penyerap</p>
-       </div>
-       <div class="text-2xl text-pink-300 font-bold">
-        →
-       </div><span class="text-3xl opacity-30">🔇</span>
       </div>
      </div>
-    </section><!-- 5. MATERI 3: PERAMBATAN BUNYI -->
+
+     <div class="bg-pink-50 rounded-2xl p-5 border-2 border-pink-200">
+      <h3 class="font-black text-pink1 text-2xl mb-2">🧽 c. Bunyi Diserap</h3>
+      <p class="text-gray-700 font-semibold mb-3 text-lg">Benda lunak bisa <strong>menyerap bunyi</strong>. Contoh: busa, kain, karpet.</p>
+      <div class="flex justify-center items-center gap-4">
+       <span class="text-4xl">🔊</span>
+       <div class="text-2xl text-pink-400 font-bold">→→</div>
+       <div class="bg-pink-200 rounded-xl px-4 py-3 text-center"><span class="text-3xl">🧽</span><p class="text-xs font-bold text-pink-600">Penyerap</p></div>
+       <div class="text-2xl text-pink-300 font-bold">→</div>
+       <span class="text-3xl opacity-30">🔇</span>
+      </div>
+     </div>
+    </section>
+
+    <!-- 5. MATERI 3: PERAMBATAN BUNYI -->
     <section id="sec-4" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">🔬</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-orange1 mt-2">Materi 3: Perambatan Bunyi</h2>
-      <p class="text-gray-500 font-semibold mt-1">Bunyi merambat berbeda di tiap medium!</p>
+      <h2 class="text-3xl sm:text-4xl font-black text-orange1 mt-2">Materi 3: Perambatan Bunyi</h2>
+      <p class="text-gray-500 font-semibold mt-1 text-lg">Bunyi merambat berbeda di tiap medium!</p>
+     </div>
+     <div class="bg-orange-50 rounded-2xl p-5 border-2 border-orange-200 mb-5">
+      <p class="font-bold text-gray-700 text-lg text-center">📌 Bunyi <strong>tidak bisa merambat di ruang hampa</strong> (tanpa medium), karena bunyi butuh partikel zat (gas, cair, atau padat) untuk bergetar dan menyalurkan getarannya. Itu sebabnya di luar angkasa kita tidak bisa mendengar suara!</p>
      </div>
      <div class="grid sm:grid-cols-3 gap-4 mb-5">
       <div class="medium-card bg-sky-100 border-2 border-sky-300" onclick="showMediumInfo('gas')">
        <span class="text-5xl block mb-2">💨</span>
        <h4 class="font-black text-sky1 text-lg">Udara (Gas)</h4>
-       <p class="text-sm text-gray-600 font-semibold mt-1">Paling lambat</p>
-       <div class="bg-sky-200 rounded-full px-3 py-1 mt-2 inline-block">
-        <span class="font-black text-sky1 text-sm">±340 m/s</span>
-       </div>
+       <p class="text-sm text-gray-600 font-semibold mt-1">Partikel renggang → Paling lambat</p>
+       <div class="bg-sky-200 rounded-full px-3 py-1 mt-2 inline-block"><span class="font-black text-sky1 text-sm">±340 m/s</span></div>
       </div>
       <div class="medium-card bg-cyan-100 border-2 border-cyan-300" onclick="showMediumInfo('cair')">
        <span class="text-5xl block mb-2">💧</span>
        <h4 class="font-black text-cyan-600 text-lg">Air (Cair)</h4>
-       <p class="text-sm text-gray-600 font-semibold mt-1">Lebih cepat</p>
-       <div class="bg-cyan-200 rounded-full px-3 py-1 mt-2 inline-block">
-        <span class="font-black text-cyan-600 text-sm">±1.500 m/s</span>
-       </div>
+       <p class="text-sm text-gray-600 font-semibold mt-1">Partikel lebih rapat → Lebih cepat</p>
+       <div class="bg-cyan-200 rounded-full px-3 py-1 mt-2 inline-block"><span class="font-black text-cyan-600 text-sm">±1.500 m/s</span></div>
       </div>
       <div class="medium-card bg-amber-100 border-2 border-amber-300" onclick="showMediumInfo('padat')">
        <span class="text-5xl block mb-2">🪨</span>
        <h4 class="font-black text-amber-600 text-lg">Benda Padat</h4>
-       <p class="text-sm text-gray-600 font-semibold mt-1">Paling cepat!</p>
-       <div class="bg-amber-200 rounded-full px-3 py-1 mt-2 inline-block">
-        <span class="font-black text-amber-600 text-sm">±5.000 m/s</span>
-       </div>
+       <p class="text-sm text-gray-600 font-semibold mt-1">Partikel paling rapat → Paling cepat!</p>
+       <div class="bg-amber-200 rounded-full px-3 py-1 mt-2 inline-block"><span class="font-black text-amber-600 text-sm">±5.000 m/s</span></div>
       </div>
      </div>
      <div id="mediumInfo" class="bg-orange-50 rounded-2xl p-4 border-2 border-orange-200 text-center hidden">
-      <p id="mediumInfoText" class="font-bold text-gray-700"></p>
-     </div><!-- Visual examples -->
+      <p id="mediumInfoText" class="font-bold text-gray-700 text-lg"></p>
+     </div>
      <div class="grid sm:grid-cols-2 gap-4 mt-5">
       <div class="bg-white rounded-xl p-4 border-2 border-orange-100 text-center">
-       <span class="text-4xl block mb-2">📞</span>
-       <h4 class="font-black text-gray-700">Telepon Kaleng</h4>
-       <p class="text-sm text-gray-500 font-semibold">Bunyi merambat lewat benang (padat)</p>
+       <span class="text-4xl block mb-2">🎸</span>
+       <h4 class="font-black text-gray-700 text-lg">Gitar/Alat Musik</h4>
+       <p class="text-sm text-gray-500 font-semibold">Bunyi senar merambat lewat badan gitar (padat), lalu lewat udara ke telinga kita</p>
       </div>
       <div class="bg-white rounded-xl p-4 border-2 border-orange-100 text-center">
-       <span class="text-4xl block mb-2">🏊</span>
-       <h4 class="font-black text-gray-700">Suara di Dalam Air</h4>
-       <p class="text-sm text-gray-500 font-semibold">Bunyi merambat lewat air (cair)</p>
+       <span class="text-4xl block mb-2">🔊</span>
+       <h4 class="font-black text-gray-700 text-lg">Sound System / Speaker Besar</h4>
+       <p class="text-sm text-gray-500 font-semibold">Getaran membran speaker menggetarkan udara di sekitarnya hingga terdengar sampai jauh</p>
       </div>
      </div>
-    </section><!-- 6. MATERI 4: CARA KERJA TELINGA -->
+     <!-- <div class="mt-6">
+      <h4 class="font-black text-gray-700 text-lg mb-2 text-center">🎬 Video: Bagaimana Bunyi Merambat</h4>
+      <h5 class="font-black text-gray-700 text-lg mb-2 text-center"><a href="https://youtu.be/Agpt6oUStMY?si=0ZfVf654aVaSolBa"></a></h5>
+      
+      <div class="video-frame"><iframe src="https://youtu.be/Agpt6oUStMY?si=0ZfVf654aVaSolBa" title="Video perambatan bunyi" allowfullscreen></iframe></div>
+      <p class="text-center text-sm text-gray-400 font-semibold mt-2">Tonton video di atas untuk melihat animasi perambatan gelombang bunyi</p>
+     </div>
+    </section> -->
+
+    <!-- 6. MATERI 4: CARA KERJA TELINGA -->
     <section id="sec-5" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">👂</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-pink1 mt-2">Materi 4: Cara Kerja Telinga</h2>
+      <h2 class="text-3xl sm:text-4xl font-black text-pink1 mt-2">Materi 4: Cara Kerja Telinga</h2>
      </div>
      <div class="bg-pink-50 rounded-2xl p-5 border-2 border-pink-200 mb-5">
-      <p class="text-lg font-bold text-gray-700 text-center mb-4">🔊 Bunyi masuk → 👂 Telinga menangkap → 🧠 Otak memproses → Kita mendengar!</p>
-     </div><!-- Ear diagram steps -->
+      <p class="text-xl font-bold text-gray-700 text-center mb-4">🔊 Bunyi masuk → 👂 Telinga menangkap → 🧠 Otak memproses → Kita mendengar!</p>
+     </div>
+
+     <!-- Diagram anatomi telinga (organ telinga manusia, bukan ikon siput) -->
+     <div class="flex justify-center mb-5">
+      <svg width="340" height="220" viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg">
+       <rect width="340" height="220" rx="16" fill="#fdf2f8"/>
+       <path d="M40,110 C30,70 55,40 90,45 C115,48 120,75 110,95 C125,90 135,105 125,120 C140,118 145,135 130,145 C118,153 100,150 95,135 C85,150 60,150 50,130 C35,125 32,118 40,110 Z" fill="#f9a8d4" stroke="#ec4899" stroke-width="2"/>
+       <text x="55" y="100" font-size="11" fill="#9d174d" font-weight="800">1</text>
+       <path d="M125,120 L210,120" stroke="#fbcfe8" stroke-width="14" stroke-linecap="round"/>
+       <text x="160" y="112" font-size="11" fill="#9d174d" font-weight="800">2</text>
+       <line x1="210" y1="100" x2="210" y2="140" stroke="#3b82f6" stroke-width="5"/>
+       <text x="205" y="95" font-size="11" fill="#1d4ed8" font-weight="800">3</text>
+       <circle cx="222" cy="105" r="6" fill="#22c55e"/>
+       <circle cx="234" cy="115" r="6" fill="#22c55e"/>
+       <circle cx="226" cy="128" r="6" fill="#22c55e"/>
+       <text x="218" y="92" font-size="11" fill="#15803d" font-weight="800">4</text>
+       <path d="M255,120 m0,0 a18,18 0 1,1 -2,17 a11,11 0 1,1 1,-11 a6,6 0 1,1 -1,6" fill="none" stroke="#f59e0b" stroke-width="5" stroke-linecap="round"/>
+       <text x="248" y="95" font-size="11" fill="#b45309" font-weight="800">5</text>
+       <path d="M278,118 Q300,110 305,90" stroke="#f97316" stroke-width="4" fill="none" stroke-linecap="round"/>
+       <circle cx="312" cy="75" r="16" fill="#fb923c" stroke="#ea580c" stroke-width="2"/>
+       <text x="306" y="80" font-size="14">🧠</text>
+       <text x="284" y="105" font-size="11" fill="#c2410c" font-weight="800">6</text>
+       <text x="170" y="200" font-size="13" fill="#831843" font-weight="800" text-anchor="middle">Penampang Organ Telinga Manusia</text>
+      </svg>
+     </div>
+
      <div class="space-y-3">
-      <div class="step-card bg-pink-50" style="border-color: #ec4899;">
-       <div class="flex items-center gap-3">
-        <span class="bg-pink1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">1</span>
-        <div>
-         <h4 class="font-black text-gray-700">Daun Telinga</h4>
-         <p class="text-sm text-gray-500 font-semibold">Menangkap gelombang bunyi dari luar</p>
-        </div><span class="text-2xl ml-auto">📡</span>
-       </div>
-      </div>
-      <div class="step-card bg-purple-50" style="border-color: #8b5cf6;">
-       <div class="flex items-center gap-3">
-        <span class="bg-purple1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">2</span>
-        <div>
-         <h4 class="font-black text-gray-700">Lubang Telinga</h4>
-         <p class="text-sm text-gray-500 font-semibold">Menyalurkan bunyi ke dalam</p>
-        </div><span class="text-2xl ml-auto">🕳️</span>
-       </div>
-      </div>
-      <div class="step-card bg-blue-50" style="border-color: #3b82f6;">
-       <div class="flex items-center gap-3">
-        <span class="bg-sky1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">3</span>
-        <div>
-         <h4 class="font-black text-gray-700">Gendang Telinga</h4>
-         <p class="text-sm text-gray-500 font-semibold">Bergetar saat bunyi mengenainya</p>
-        </div><span class="text-2xl ml-auto animate-vibrate">〰️</span>
-       </div>
-      </div>
-      <div class="step-card bg-green-50" style="border-color: #22c55e;">
-       <div class="flex items-center gap-3">
-        <span class="bg-green1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">4</span>
-        <div>
-         <h4 class="font-black text-gray-700">Tulang-tulang Kecil</h4>
-         <p class="text-sm text-gray-500 font-semibold">Memperkuat getaran bunyi</p>
-        </div><span class="text-2xl ml-auto">🦴</span>
-       </div>
-      </div>
-      <div class="step-card bg-yellow-50" style="border-color: #facc15;">
-       <div class="flex items-center gap-3">
-        <span class="bg-yellow-400 text-gray-800 rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">5</span>
-        <div>
-         <h4 class="font-black text-gray-700">Rumah Siput (Koklea)</h4>
-         <p class="text-sm text-gray-500 font-semibold">Mengubah getaran jadi sinyal listrik</p>
-        </div><span class="text-2xl ml-auto">🐌</span>
-       </div>
-      </div>
-      <div class="step-card bg-orange-50" style="border-color: #f97316;">
-       <div class="flex items-center gap-3">
-        <span class="bg-orange1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">6</span>
-        <div>
-         <h4 class="font-black text-gray-700">Saraf Pendengaran → Otak</h4>
-         <p class="text-sm text-gray-500 font-semibold">Otak memproses sinyal → kita mendengar!</p>
-        </div><span class="text-2xl ml-auto">🧠</span>
-       </div>
-      </div>
-     </div><!-- Ear animation button -->
+      <div class="step-card bg-pink-50" style="border-color: #ec4899;"><div class="flex items-center gap-3"><span class="bg-pink1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">1</span><div><h4 class="font-black text-gray-700 text-lg">Daun Telinga</h4><p class="text-base text-gray-500 font-semibold">Menangkap gelombang bunyi dari luar</p></div><span class="text-2xl ml-auto">📡</span></div></div>
+      <div class="step-card bg-purple-50" style="border-color: #8b5cf6;"><div class="flex items-center gap-3"><span class="bg-purple1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">2</span><div><h4 class="font-black text-gray-700 text-lg">Lubang/Saluran Telinga</h4><p class="text-base text-gray-500 font-semibold">Menyalurkan bunyi ke dalam</p></div><span class="text-2xl ml-auto">🕳️</span></div></div>
+      <div class="step-card bg-blue-50" style="border-color: #3b82f6;"><div class="flex items-center gap-3"><span class="bg-sky1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">3</span><div><h4 class="font-black text-gray-700 text-lg">Gendang Telinga (Membran Timpani)</h4><p class="text-base text-gray-500 font-semibold">Bergetar saat bunyi mengenainya</p></div><span class="text-2xl ml-auto animate-vibrate">〰️</span></div></div>
+      <div class="step-card bg-green-50" style="border-color: #22c55e;"><div class="flex items-center gap-3"><span class="bg-green1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">4</span><div><h4 class="font-black text-gray-700 text-lg">Tulang-tulang Pendengaran</h4><p class="text-base text-gray-500 font-semibold">Martil, landasan, sanggurdi — memperkuat getaran bunyi</p></div><span class="text-2xl ml-auto">🦴</span></div></div>
+      <div class="step-card bg-yellow-50" style="border-color: #facc15;"><div class="flex items-center gap-3"><span class="bg-yellow-400 text-gray-800 rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">5</span><div><h4 class="font-black text-gray-700 text-lg">Koklea (Rumah Siput)</h4><p class="text-base text-gray-500 font-semibold">Organ spiral berisi cairan dan sel rambut, mengubah getaran jadi sinyal listrik</p></div><span class="text-2xl ml-auto">🌀</span></div></div>
+      <div class="step-card bg-orange-50" style="border-color: #f97316;"><div class="flex items-center gap-3"><span class="bg-orange1 text-white rounded-full w-8 h-8 flex items-center justify-center font-black text-sm">6</span><div><h4 class="font-black text-gray-700 text-lg">Saraf Pendengaran → Otak</h4><p class="text-base text-gray-500 font-semibold">Otak memproses sinyal → kita mendengar!</p></div><span class="text-2xl ml-auto">🧠</span></div></div>
+     </div>
+
      <div class="text-center mt-5">
       <button id="earAnimBtn" onclick="playEarAnimation()" class="bg-pink1 text-white px-6 py-3 rounded-full font-bold text-lg hover:bg-pink-600 transition shadow-md"> ▶ Lihat Animasi Bunyi Masuk Telinga </button>
       <div id="earAnim" class="mt-4 hidden">
        <div class="flex items-center justify-center gap-2 text-3xl">
-        <span id="earStep1" class="opacity-0 transition-all duration-500">🔊</span> <span id="earStep2" class="opacity-0 transition-all duration-500">〰️</span> <span id="earStep3" class="opacity-0 transition-all duration-500">〰️</span> <span id="earStep4" class="opacity-0 transition-all duration-500 animate-ear">👂</span> <span id="earStep5" class="opacity-0 transition-all duration-500">⚡</span> <span id="earStep6" class="opacity-0 transition-all duration-500">🧠</span> <span id="earStep7" class="opacity-0 transition-all duration-500">💡</span>
+        <span id="earStep1" class="opacity-0 transition-all duration-500">🔊</span>
+        <span id="earStep2" class="opacity-0 transition-all duration-500">〰️</span>
+        <span id="earStep3" class="opacity-0 transition-all duration-500">〰️</span>
+        <span id="earStep4" class="opacity-0 transition-all duration-500 animate-ear">👂</span>
+        <span id="earStep5" class="opacity-0 transition-all duration-500">⚡</span>
+        <span id="earStep6" class="opacity-0 transition-all duration-500">🧠</span>
+        <span id="earStep7" class="opacity-0 transition-all duration-500">💡</span>
        </div>
        <p id="earAnimText" class="mt-2 font-bold text-pink1 text-lg"></p>
       </div>
      </div>
-    </section><!-- 7. AKTIVITAS / PERCOBAAN -->
+
+     <!-- <div class="mt-6">
+      <h4 class="font-black text-gray-700 text-lg mb-2 text-center">🎬 Video: Cara Kerja Telinga Manusia</h4>
+      <div class="video-frame"><iframe src="https://www.youtube.com/embed/EVUtwhf8nGE" title="Video cara kerja telinga" allowfullscreen></iframe></div>
+     </div> -->
+    </section>
+
+    <!-- 7. AKTIVITAS / PERCOBAAN -->
     <section id="sec-6" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">🧪</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-cyan-600 mt-2">Ayo Coba! Percobaan Bunyi</h2>
-      <p class="text-gray-500 font-semibold mt-1">Coba percobaan seru ini di rumah!</p>
-     </div><!-- Experiment 1 -->
-     <div class="bg-cyan-50 rounded-2xl p-5 border-2 border-cyan-200 mb-4">
-      <h3 class="font-black text-cyan-700 text-lg mb-3">🪵 Percobaan 1: Ketuk Meja</h3>
-      <div class="space-y-2">
-       <div class="step-card bg-white" style="border-color: #06b6d4;">
-        <div class="flex items-center gap-2">
-         <span class="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">1</span>
-         <p class="font-semibold text-gray-700 text-sm">Tempelkan telingamu ke meja</p>
-        </div>
-       </div>
-       <div class="step-card bg-white" style="border-color: #06b6d4;">
-        <div class="flex items-center gap-2">
-         <span class="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">2</span>
-         <p class="font-semibold text-gray-700 text-sm">Minta teman mengetuk meja di ujung lain</p>
-        </div>
-       </div>
-       <div class="step-card bg-white" style="border-color: #06b6d4;">
-        <div class="flex items-center gap-2">
-         <span class="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">3</span>
-         <p class="font-semibold text-gray-700 text-sm">Dengarkan! Bunyi terdengar lebih keras lewat benda padat!</p>
-        </div>
-       </div>
-      </div>
-      <div class="text-center mt-3 text-4xl">
-       👂🪵✊
-      </div>
-     </div><!-- Experiment 2 -->
-     <div class="bg-green-50 rounded-2xl p-5 border-2 border-green-200 mb-4">
-      <h3 class="font-black text-green-700 text-lg mb-3">📞 Percobaan 2: Telepon Kaleng</h3>
-      <div class="space-y-2">
-       <div class="step-card bg-white" style="border-color: #22c55e;">
-        <div class="flex items-center gap-2">
-         <span class="bg-green1 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">1</span>
-         <p class="font-semibold text-gray-700 text-sm">Siapkan 2 kaleng dan seutas benang</p>
-        </div>
-       </div>
-       <div class="step-card bg-white" style="border-color: #22c55e;">
-        <div class="flex items-center gap-2">
-         <span class="bg-green1 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">2</span>
-         <p class="font-semibold text-gray-700 text-sm">Hubungkan kedua kaleng dengan benang</p>
-        </div>
-       </div>
-       <div class="step-card bg-white" style="border-color: #22c55e;">
-        <div class="flex items-center gap-2">
-         <span class="bg-green1 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">3</span>
-         <p class="font-semibold text-gray-700 text-sm">Bicara di satu kaleng, dengarkan di kaleng lain!</p>
-        </div>
-       </div>
-      </div>
-      <div class="text-center mt-3 text-4xl">
-       🥫〰️〰️🥫
-      </div>
-     </div><!-- Experiment 3 -->
-     <div class="bg-yellow-50 rounded-2xl p-5 border-2 border-yellow-200">
-      <h3 class="font-black text-yellow-700 text-lg mb-3">🙉 Percobaan 3: Tutup Telinga</h3>
-      <div class="space-y-2">
-       <div class="step-card bg-white" style="border-color: #eab308;">
-        <div class="flex items-center gap-2">
-         <span class="bg-yellow-400 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">1</span>
-         <p class="font-semibold text-gray-700 text-sm">Dengarkan suara di sekitarmu</p>
-        </div>
-       </div>
-       <div class="step-card bg-white" style="border-color: #eab308;">
-        <div class="flex items-center gap-2">
-         <span class="bg-yellow-400 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">2</span>
-         <p class="font-semibold text-gray-700 text-sm">Tutup kedua telingamu rapat-rapat</p>
-        </div>
-       </div>
-       <div class="step-card bg-white" style="border-color: #eab308;">
-        <div class="flex items-center gap-2">
-         <span class="bg-yellow-400 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">3</span>
-         <p class="font-semibold text-gray-700 text-sm">Bandingkan suara! Lebih pelan bukan? Itu karena bunyi terhalang!</p>
-        </div>
-       </div>
-      </div>
-      <div class="text-center mt-3 text-4xl">
-       🙉🔇
-      </div>
+      <h2 class="text-3xl sm:text-4xl font-black text-cyan-600 mt-2">Ayo Coba! Percobaan Bunyi</h2>
+      <p class="text-gray-500 font-semibold mt-1 text-lg">Coba percobaan seru ini di rumah!</p>
      </div>
-    </section><!-- 8. GAME INTERAKTIF (QUIZ) -->
+
+     <div class="bg-cyan-50 rounded-2xl p-5 border-2 border-cyan-200 mb-4">
+      <h3 class="font-black text-cyan-700 text-xl mb-3">🪵 Percobaan 1: Ketuk Meja</h3>
+      <div class="space-y-2">
+       <div class="step-card bg-white" style="border-color: #06b6d4;"><div class="flex items-center gap-2"><span class="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">1</span><p class="font-semibold text-gray-700 text-base">Tempelkan telingamu ke meja</p></div></div>
+       <div class="step-card bg-white" style="border-color: #06b6d4;"><div class="flex items-center gap-2"><span class="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">2</span><p class="font-semibold text-gray-700 text-base">Minta teman mengetuk meja di ujung lain</p></div></div>
+       <div class="step-card bg-white" style="border-color: #06b6d4;"><div class="flex items-center gap-2"><span class="bg-cyan-500 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">3</span><p class="font-semibold text-gray-700 text-base">Dengarkan! Bunyi terdengar lebih keras lewat benda padat!</p></div></div>
+      </div>
+      <div class="text-center mt-3 text-4xl">👂🪵✊</div>
+     </div>
+
+     <div class="bg-green-50 rounded-2xl p-5 border-2 border-green-200 mb-4">
+      <h3 class="font-black text-green-700 text-xl mb-3">🥤 Percobaan 2: Alat Musik Gelas Air</h3>
+      <div class="space-y-2">
+       <div class="step-card bg-white" style="border-color: #22c55e;"><div class="flex items-center gap-2"><span class="bg-green1 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">1</span><p class="font-semibold text-gray-700 text-base">Siapkan beberapa gelas kaca, isi dengan air dengan jumlah berbeda</p></div></div>
+       <div class="step-card bg-white" style="border-color: #22c55e;"><div class="flex items-center gap-2"><span class="bg-green1 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">2</span><p class="font-semibold text-gray-700 text-base">Pukul perlahan tiap gelas dengan sendok</p></div></div>
+       <div class="step-card bg-white" style="border-color: #22c55e;"><div class="flex items-center gap-2"><span class="bg-green1 text-white rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">3</span><p class="font-semibold text-gray-700 text-base">Dengarkan! Gelas dengan air berbeda menghasilkan bunyi yang berbeda tinggi-rendahnya!</p></div></div>
+      </div>
+      <div class="text-center mt-3 text-4xl">🥤🥤🥤🎵</div>
+     </div>
+
+     <div class="bg-yellow-50 rounded-2xl p-5 border-2 border-yellow-200">
+      <h3 class="font-black text-yellow-700 text-xl mb-3">🙉 Percobaan 3: Tutup Telinga</h3>
+      <div class="space-y-2">
+       <div class="step-card bg-white" style="border-color: #eab308;"><div class="flex items-center gap-2"><span class="bg-yellow-400 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">1</span><p class="font-semibold text-gray-700 text-base">Dengarkan suara di sekitarmu</p></div></div>
+       <div class="step-card bg-white" style="border-color: #eab308;"><div class="flex items-center gap-2"><span class="bg-yellow-400 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">2</span><p class="font-semibold text-gray-700 text-base">Tutup kedua telingamu rapat-rapat</p></div></div>
+       <div class="step-card bg-white" style="border-color: #eab308;"><div class="flex items-center gap-2"><span class="bg-yellow-400 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center font-black text-xs">3</span><p class="font-semibold text-gray-700 text-base">Bandingkan suara! Lebih pelan bukan? Itu karena bunyi terhalang!</p></div></div>
+      </div>
+      <div class="text-center mt-3 text-4xl">🙉🔇</div>
+     </div>
+    </section>
+
+    <!-- 8. GAME INTERAKTIF (QUIZ) -->
     <section id="sec-7" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">🎮</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-sky1 mt-2">Game Kuis Bunyi!</h2>
-      <p class="text-gray-500 font-semibold mt-1">Uji pengetahuanmu! Pilih jawaban yang benar.</p>
+      <h2 class="text-3xl sm:text-4xl font-black text-sky1 mt-2">Game Kuis Bunyi!</h2>
+      <p class="text-gray-500 font-semibold mt-1 text-lg">Uji pengetahuanmu! Pilih jawaban yang benar.</p>
      </div>
      <div id="quizContainer">
       <div id="quizProgress" class="flex items-center gap-3 mb-4">
-       <div class="flex-1 bg-gray-200 rounded-full h-4 overflow-hidden">
-        <div id="quizBar" class="bg-sky1 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
-       </div><span id="quizCount" class="font-black text-gray-600 text-sm">0/8</span>
+       <div class="flex-1 bg-gray-200 rounded-full h-4 overflow-hidden"><div id="quizBar" class="bg-sky1 h-4 rounded-full transition-all duration-500" style="width: 0%"></div></div>
+       <span id="quizCount" class="font-black text-gray-600 text-sm">0/8</span>
       </div>
       <div id="quizQuestion" class="bg-blue-50 rounded-2xl p-5 border-2 border-blue-200 mb-4 text-center">
-       <p id="qText" class="text-lg font-black text-gray-800"></p>
+       <p id="qText" class="text-xl font-black text-gray-800"></p>
        <p id="qEmoji" class="text-4xl mt-2"></p>
       </div>
       <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
       <div id="quizFeedback" class="mt-4 text-center hidden">
-       <p id="feedbackText" class="text-xl font-black"></p><button id="nextBtn" onclick="nextQuestion()" class="mt-3 bg-sky1 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-600 transition hidden"> Soal Berikutnya → </button>
+       <p id="feedbackText" class="text-xl font-black"></p>
+       <button id="nextBtn" onclick="nextQuestion()" class="mt-3 bg-sky1 text-white px-6 py-2 rounded-full font-bold hover:bg-blue-600 transition hidden"> Soal Berikutnya → </button>
       </div>
       <div id="quizResult" class="hidden text-center py-6">
        <div class="text-6xl mb-4" id="resultEmoji"></div>
        <h3 id="resultTitle" class="text-2xl font-black mb-2"></h3>
-       <p id="resultText" class="text-gray-600 font-semibold mb-4"></p>
-       <div id="resultScore" class="bg-blue-50 rounded-2xl p-4 inline-block mb-4">
-        <span class="text-4xl font-black text-sky1" id="scoreDisplay"></span>
-       </div><br><button onclick="restartQuiz()" class="bg-sky1 text-white px-6 py-3 rounded-full font-bold text-lg hover:bg-blue-600 transition">🔄 Main Lagi!</button>
+       <p id="resultText" class="text-gray-600 font-semibold mb-4 text-lg"></p>
+       <div id="resultScore" class="bg-blue-50 rounded-2xl p-4 inline-block mb-4"><span class="text-4xl font-black text-sky1" id="scoreDisplay"></span></div><br>
+       <button onclick="restartQuiz()" class="bg-sky1 text-white px-6 py-3 rounded-full font-bold text-lg hover:bg-blue-600 transition">🔄 Main Lagi!</button>
       </div>
      </div>
-    </section><!-- 9. ANALISIS SEDERHANA -->
+    </section>
+
+    <!-- 9. ANALISIS SEDERHANA -->
     <section id="sec-8" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">📊</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-amber-600 mt-2">Analisis Perambatan Bunyi</h2>
-     </div><!-- Comparison Table -->
+      <h2 class="text-3xl sm:text-4xl font-black text-amber-600 mt-2">Analisis Perambatan Bunyi</h2>
+     </div>
      <div class="overflow-x-auto mb-6">
-      <table class="w-full rounded-xl overflow-hidden text-sm">
-       <thead>
-        <tr class="bg-amber-400 text-white">
-         <th class="px-4 py-3 text-left font-black">Medium</th>
-         <th class="px-4 py-3 text-left font-black">Kecepatan</th>
-         <th class="px-4 py-3 text-left font-black">Contoh</th>
-         <th class="px-4 py-3 text-left font-black">Keterangan</th>
-        </tr>
-       </thead>
+      <table class="w-full rounded-xl overflow-hidden text-base">
+       <thead><tr class="bg-amber-400 text-white"><th class="px-4 py-3 text-left font-black">Medium</th><th class="px-4 py-3 text-left font-black">Kecepatan</th><th class="px-4 py-3 text-left font-black">Contoh</th><th class="px-4 py-3 text-left font-black">Keterangan</th></tr></thead>
        <tbody>
-        <tr class="bg-sky-50 border-b-2 border-white">
-         <td class="px-4 py-3 font-bold">💨 Gas (Udara)</td>
-         <td class="px-4 py-3 font-semibold">±340 m/s</td>
-         <td class="px-4 py-3 font-semibold">Berbicara biasa</td>
-         <td class="px-4 py-3"><span class="bg-sky-200 text-sky-700 px-2 py-1 rounded-full text-xs font-bold">Paling Lambat</span></td>
-        </tr>
-        <tr class="bg-cyan-50 border-b-2 border-white">
-         <td class="px-4 py-3 font-bold">💧 Cair (Air)</td>
-         <td class="px-4 py-3 font-semibold">±1.500 m/s</td>
-         <td class="px-4 py-3 font-semibold">Suara di kolam</td>
-         <td class="px-4 py-3"><span class="bg-cyan-200 text-cyan-700 px-2 py-1 rounded-full text-xs font-bold">Lebih Cepat</span></td>
-        </tr>
-        <tr class="bg-amber-50">
-         <td class="px-4 py-3 font-bold">🪨 Padat</td>
-         <td class="px-4 py-3 font-semibold">±5.000 m/s</td>
-         <td class="px-4 py-3 font-semibold">Ketuk meja</td>
-         <td class="px-4 py-3"><span class="bg-amber-200 text-amber-700 px-2 py-1 rounded-full text-xs font-bold">Paling Cepat!</span></td>
-        </tr>
+        <tr class="bg-sky-50 border-b-2 border-white"><td class="px-4 py-3 font-bold">💨 Gas (Udara)</td><td class="px-4 py-3 font-semibold">±340 m/s</td><td class="px-4 py-3 font-semibold">Berbicara biasa</td><td class="px-4 py-3"><span class="bg-sky-200 text-sky-700 px-2 py-1 rounded-full text-xs font-bold">Paling Lambat</span></td></tr>
+        <tr class="bg-cyan-50 border-b-2 border-white"><td class="px-4 py-3 font-bold">💧 Cair (Air)</td><td class="px-4 py-3 font-semibold">±1.500 m/s</td><td class="px-4 py-3 font-semibold">Suara di kolam</td><td class="px-4 py-3"><span class="bg-cyan-200 text-cyan-700 px-2 py-1 rounded-full text-xs font-bold">Lebih Cepat</span></td></tr>
+        <tr class="bg-amber-50"><td class="px-4 py-3 font-bold">🪨 Padat</td><td class="px-4 py-3 font-semibold">±5.000 m/s</td><td class="px-4 py-3 font-semibold">Ketuk meja</td><td class="px-4 py-3"><span class="bg-amber-200 text-amber-700 px-2 py-1 rounded-full text-xs font-bold">Paling Cepat!</span></td></tr>
        </tbody>
       </table>
-     </div><!-- Sound absorber picker -->
-     <h3 class="font-black text-gray-700 text-lg mb-3">🧽 Mana yang Bisa Menyerap Bunyi?</h3>
-     <p class="text-gray-500 font-semibold mb-3">Klik bahan yang menurutmu bisa menyerap bunyi (peredam)!</p>
-     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="absorberGrid">
-      <!-- Generated by JS -->
      </div>
-     <div id="absorberFeedback" class="mt-3 text-center hidden">
-      <p id="absorberFeedbackText" class="font-bold text-lg"></p>
-     </div>
-    </section><!-- 10. KESEHATAN TELINGA -->
+     <h3 class="font-black text-gray-700 text-xl mb-3">🧽 Mana yang Bisa Menyerap Bunyi?</h3>
+     <p class="text-gray-500 font-semibold mb-3 text-lg">Klik bahan yang menurutmu bisa menyerap bunyi (peredam)!</p>
+     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="absorberGrid"></div>
+     <div id="absorberFeedback" class="mt-3 text-center hidden"><p id="absorberFeedbackText" class="font-bold text-lg"></p></div>
+    </section>
+
+    <!-- 10. KESEHATAN TELINGA -->
     <section id="sec-9" class="section-card">
      <div class="text-center mb-6">
       <span class="text-4xl">❤️</span>
-      <h2 class="text-2xl sm:text-3xl font-black text-red-500 mt-2">Jaga Kesehatan Telingamu!</h2>
+      <h2 class="text-3xl sm:text-4xl font-black text-red-500 mt-2">Jaga Kesehatan Telingamu!</h2>
      </div>
      <div class="grid sm:grid-cols-2 gap-4">
       <div class="bg-green-50 rounded-2xl p-4 border-2 border-green-200">
-       <h3 class="font-black text-green1 mb-2">✅ Yang Baik Dilakukan:</h3>
+       <h3 class="font-black text-green1 mb-2 text-xl">✅ Yang Baik Dilakukan:</h3>
        <ul class="space-y-2">
-        <li class="flex items-start gap-2"><span class="text-lg">🎧</span><span class="font-semibold text-gray-700 text-sm">Dengarkan musik dengan volume sedang</span></li>
-        <li class="flex items-start gap-2"><span class="text-lg">⏰</span><span class="font-semibold text-gray-700 text-sm">Istirahatkan telinga setiap 1 jam</span></li>
-        <li class="flex items-start gap-2"><span class="text-lg">🧹</span><span class="font-semibold text-gray-700 text-sm">Bersihkan telinga dengan hati-hati</span></li>
-        <li class="flex items-start gap-2"><span class="text-lg">🏥</span><span class="font-semibold text-gray-700 text-sm">Periksa ke dokter jika telinga sakit</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">🎧</span><span class="font-semibold text-gray-700 text-base">Dengarkan musik dengan volume sedang</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">⏰</span><span class="font-semibold text-gray-700 text-base">Istirahatkan telinga setiap 1 jam</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">🧹</span><span class="font-semibold text-gray-700 text-base">Bersihkan telinga dengan hati-hati</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">🏥</span><span class="font-semibold text-gray-700 text-base">Periksa ke dokter jika telinga sakit</span></li>
        </ul>
       </div>
       <div class="bg-red-50 rounded-2xl p-4 border-2 border-red-200">
-       <h3 class="font-black text-red-500 mb-2">❌ Yang Harus Dihindari:</h3>
+       <h3 class="font-black text-red-500 mb-2 text-xl">❌ Yang Harus Dihindari:</h3>
        <ul class="space-y-2">
-        <li class="flex items-start gap-2"><span class="text-lg">🔊</span><span class="font-semibold text-gray-700 text-sm">Jangan dengar suara terlalu keras!</span></li>
-        <li class="flex items-start gap-2"><span class="text-lg">🎧</span><span class="font-semibold text-gray-700 text-sm">Jangan pakai headset terlalu lama</span></li>
-        <li class="flex items-start gap-2"><span class="text-lg">✏️</span><span class="font-semibold text-gray-700 text-sm">Jangan colok telinga dengan benda tajam</span></li>
-        <li class="flex items-start gap-2"><span class="text-lg">💥</span><span class="font-semibold text-gray-700 text-sm">Hindari tempat sangat bising tanpa pelindung</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">🔊</span><span class="font-semibold text-gray-700 text-base">Jangan dengar suara terlalu keras (misalnya sound horeg dari jarak dekat)!</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">🎧</span><span class="font-semibold text-gray-700 text-base">Jangan pakai headset terlalu lama</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">✏️</span><span class="font-semibold text-gray-700 text-base">Jangan colok telinga dengan benda tajam</span></li>
+        <li class="flex items-start gap-2"><span class="text-lg">💥</span><span class="font-semibold text-gray-700 text-base">Hindari tempat sangat bising tanpa pelindung telinga</span></li>
        </ul>
       </div>
      </div>
      <div class="bg-yellow-50 rounded-2xl p-4 border-2 border-yellow-200 mt-4 text-center">
       <span class="text-4xl block mb-2">🎧👦</span>
-      <p class="font-black text-gray-700">Ingat! Gunakan headset dengan bijak ya, teman-teman!</p>
-      <p class="text-sm text-gray-500 font-semibold mt-1">Volume aman: tidak lebih dari 60% selama maksimal 60 menit</p>
+      <p class="font-black text-gray-700 text-lg">Ingat! Gunakan headset dengan bijak ya, teman-teman!</p>
+      <p class="text-base text-gray-500 font-semibold mt-1">Volume aman: tidak lebih dari 60% selama maksimal 60 menit</p>
      </div>
-    </section><!-- 11. PENUTUP -->
+    </section>
+
+    <!-- 11. PENUTUP -->
     <section id="sec-10" class="section-card text-center" style="background: linear-gradient(135deg, #22c55e, #06b6d4);">
      <div class="py-6">
-      <div class="text-6xl mb-4 animate-float">
-       🎉
-      </div>
-      <h2 id="closingMsg" class="text-3xl font-black text-white mb-3 drop-shadow">Belajar Bunyi itu Seru!</h2>
-      <p class="text-lg text-green-100 font-semibold mb-6">Sekarang kamu sudah tahu tentang gelombang bunyi! Keren! 🌟</p>
+      <div class="text-6xl mb-4 animate-float">🎉</div>
+      <h2 class="text-3xl font-black text-white mb-3 drop-shadow">Belajar Bunyi itu Seru!</h2>
+      <p class="text-xl text-green-100 font-semibold mb-6">Sekarang kamu sudah tahu tentang gelombang bunyi! Keren! 🌟</p>
       <div class="flex flex-wrap justify-center gap-4">
-       <button onclick="restartQuiz(); scrollToSection(7);" class="bg-yellow1 text-gray-800 px-6 py-3 rounded-full font-black text-lg hover:bg-yellow-300 transition shadow-lg">🎮 Main Kuis Lagi</button> <button onclick="scrollToSection(0)" class="bg-white text-sky1 px-6 py-3 rounded-full font-black text-lg hover:bg-gray-100 transition shadow-lg">📖 Ulangi Materi</button>
+       <button onclick="restartQuiz(); scrollToSection(7);" class="bg-yellow1 text-gray-800 px-6 py-3 rounded-full font-black text-lg hover:bg-yellow-300 transition shadow-lg">🎮 Main Kuis Lagi</button>
+       <button onclick="scrollToSection(0)" class="bg-white text-sky1 px-6 py-3 rounded-full font-black text-lg hover:bg-gray-100 transition shadow-lg">📖 Ulangi Materi</button>
       </div>
       <div class="flex justify-center gap-3 mt-6 text-4xl">
-       <span class="animate-float" style="animation-delay:0s;">🎵</span> <span class="animate-float" style="animation-delay:0.2s;">🔊</span> <span class="animate-float" style="animation-delay:0.4s;">👂</span> <span class="animate-float" style="animation-delay:0.6s;">🧠</span> <span class="animate-float" style="animation-delay:0.8s;">💡</span>
+       <span class="animate-float" style="animation-delay:0s;">🎵</span>
+       <span class="animate-float" style="animation-delay:0.2s;">🔊</span>
+       <span class="animate-float" style="animation-delay:0.4s;">👂</span>
+       <span class="animate-float" style="animation-delay:0.6s;">🧠</span>
+       <span class="animate-float" style="animation-delay:0.8s;">💡</span>
       </div>
      </div>
     </section>
-   </div><!-- end max-w container -->
-  </div><!-- end app -->
+
+   </div>
+  </div>
+
   <script>
-// ===== CONFIG & ELEMENT SDK =====
-const defaultConfig = {
-  hero_title: 'Yuk Belajar Gelombang Bunyi!',
-  hero_subtitle: 'Bagaimana suara bisa kita dengar?',
-  closing_message: 'Belajar Bunyi itu Seru!',
-  background_color: '#e0f2fe',
-  surface_color: '#ffffff',
-  text_color: '#1e293b',
-  primary_action_color: '#3b82f6',
-  secondary_action_color: '#22c55e',
-  font_family: 'Nunito',
-  font_size: 16,
-};
-
-function applyConfig(config) {
-  const c = { ...defaultConfig, ...config };
-  const el = (id) => document.getElementById(id);
-
-  el('heroTitle').textContent = c.hero_title;
-  el('heroSubtitle').textContent = c.hero_subtitle;
-  el('closingMsg').textContent = c.closing_message;
-
-  const app = el('app');
-  app.style.background = `linear-gradient(135deg, ${c.background_color} 0%, #f0fdf4 30%, #fefce8 60%, #fce7f3 100%)`;
-
-  document.querySelectorAll('.section-card').forEach(card => {
-    if (!card.style.background || card.style.background.includes('white')) {
-      card.style.background = c.surface_color;
-    }
-  });
-
-  document.querySelectorAll('h2, h3, h4, p, li span:last-child, td').forEach(el => {
-    if (el.closest('[style*="linear-gradient"]')) return;
-    const computed = getComputedStyle(el).color;
-    if (!computed.includes('255, 255, 255')) {
-      // Don't override colored headings
-    }
-  });
-
-  const font = c.font_family || defaultConfig.font_family;
-  const baseFontStack = 'Arial, sans-serif';
-  document.body.style.fontFamily = `${font}, ${baseFontStack}`;
-  const baseSize = c.font_size || defaultConfig.font_size;
-  document.querySelectorAll('h1').forEach(e => e.style.fontSize = `${baseSize * 2.5}px`);
-  document.querySelectorAll('h2').forEach(e => e.style.fontSize = `${baseSize * 1.75}px`);
-  document.querySelectorAll('h3').forEach(e => e.style.fontSize = `${baseSize * 1.2}px`);
-  document.querySelectorAll('p, li, td').forEach(e => {
-    if (!e.classList.contains('text-xs') && !e.classList.contains('text-sm')) {
-      e.style.fontSize = `${baseSize}px`;
-    }
-  });
-}
-
-if (window.elementSdk) {
-  window.elementSdk.init({
-    defaultConfig,
-    onConfigChange: async (config) => applyConfig(config),
-    mapToCapabilities: (config) => ({
-      recolorables: [
-        { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-        { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-        { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-        { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
-        { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
-      ],
-      borderables: [],
-      fontEditable: {
-        get: () => config.font_family || defaultConfig.font_family,
-        set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
-      },
-      fontSizeable: {
-        get: () => config.font_size || defaultConfig.font_size,
-        set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
-      }
-    }),
-    mapToEditPanelValues: (config) => new Map([
-      ['hero_title', config.hero_title || defaultConfig.hero_title],
-      ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
-      ['closing_message', config.closing_message || defaultConfig.closing_message],
-    ])
-  });
-}
-
-// ===== NAVIGATION =====
 const sections = [];
 const sectionNames = ['🏠','🎯','🔊','✨','🔬','👂','🧪','🎮','📊','❤️','🎉'];
 
 function initNav() {
-  for (let i = 0; i <= 10; i++) {
-    sections.push(document.getElementById('sec-' + i));
-  }
+  for (let i = 0; i <= 10; i++) sections.push(document.getElementById('sec-' + i));
   const dotsContainer = document.getElementById('navDots');
   sectionNames.forEach((name, i) => {
     const dot = document.createElement('button');
@@ -773,227 +491,127 @@ function initNav() {
   updateActiveDot();
   document.getElementById('app').addEventListener('scroll', updateActiveDot);
 }
-
-function scrollToSection(i) {
-  sections[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
+function scrollToSection(i) { sections[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 function updateActiveDot() {
   const app = document.getElementById('app');
   const scrollTop = app.scrollTop;
   let active = 0;
-  sections.forEach((sec, i) => {
-    if (sec && sec.offsetTop - 100 <= scrollTop) active = i;
-  });
-  document.querySelectorAll('.nav-dot').forEach((d, i) => {
-    d.classList.toggle('active', i === active);
-  });
+  sections.forEach((sec, i) => { if (sec && sec.offsetTop - 100 <= scrollTop) active = i; });
+  document.querySelectorAll('.nav-dot').forEach((d, i) => d.classList.toggle('active', i === active));
 }
 
-// ===== VIBRATION DEMO =====
 let vibrateOn = false;
 function toggleVibrate() {
   vibrateOn = !vibrateOn;
   const btn = document.getElementById('vibrateBtn');
-  ['guitarVib','bellVib','drumVib'].forEach(id => {
-    document.getElementById(id).classList.toggle('animate-vibrate', vibrateOn);
-  });
-  btn.textContent = vibrateOn ? '⏹ Hentikan' : '▶ Dengar & Lihat Getaran';
+  ['guitarVib','bellVib','drumVib'].forEach(id => document.getElementById(id).classList.toggle('animate-vibrate', vibrateOn));
+  btn.textContent = vibrateOn ? '⏹ Hentikan' : '▶ Lihat Getaran';
   btn.classList.toggle('bg-red-500', vibrateOn);
   btn.classList.toggle('bg-green1', !vibrateOn);
 }
 
-// ===== SOUND EFFECTS =====
-function playSound(type) {
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-  
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-  
-  gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-  
-  if (type === 'guitar') {
-    oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(220, audioContext.currentTime + 0.5);
-  } else if (type === 'bell') {
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.8);
-  } else if (type === 'drum') {
-    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(75, audioContext.currentTime + 0.4);
-  }
-  
-  oscillator.start(audioContext.currentTime);
-  oscillator.stop(audioContext.currentTime + 0.5);
-  
-  // Show sound indicator
-  const emoji = type === 'guitar' ? '🎸' : type === 'bell' ? '🔔' : '🥁';
-  const container = document.querySelector(`[onclick="playSound('${type}')"]`);
-  const indicator = document.createElement('div');
-  indicator.className = 'sound-indicator absolute';
-  indicator.textContent = '🔊';
-  container.style.position = 'relative';
-  container.appendChild(indicator);
-  setTimeout(() => indicator.remove(), 600);
-}
-
-// Daily sound examples - REALISTIS
 function playSoundEffect(type) {
   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
   const now = audioContext.currentTime;
-  
+
   if (type === 'chicken') {
-    // Ayam berkokok - "kok-kok-kok!" dengan glottal stops dan vibrato
-    // Buat 3 kokok dengan karakteristik unik ayam
     for (let c = 0; c < 3; c++) {
       const startTime = now + (c * 0.5);
-      
-      // Fundamental tone dengan fast vibrato
       const osc = audioContext.createOscillator();
       const gain = audioContext.createGain();
       const vibLFO = audioContext.createOscillator();
       const vibGain = audioContext.createGain();
-      
       osc.type = 'sawtooth';
-      vibLFO.frequency.value = 5; // Fast vibrato
+      vibLFO.frequency.value = 5;
       vibGain.gain.value = 40;
-      
-      osc.connect(gain);
-      gain.connect(audioContext.destination);
-      vibLFO.connect(vibGain);
-      vibGain.connect(osc.frequency);
-      
-      // Nada dasar kokok ayam (higher pitched)
-      const baseFreq = 400 + (c * 50); // Naik perlahan
+      osc.connect(gain); gain.connect(audioContext.destination);
+      vibLFO.connect(vibGain); vibGain.connect(osc.frequency);
+      const baseFreq = 400 + (c * 50);
       osc.frequency.setValueAtTime(baseFreq, startTime);
-      osc.frequency.linearRampToValueAtTime(baseFreq + 200, startTime + 0.08); // Attack cepat naik
-      osc.frequency.linearRampToValueAtTime(baseFreq, startTime + 0.25); // Decay turun
-      
+      osc.frequency.linearRampToValueAtTime(baseFreq + 200, startTime + 0.08);
+      osc.frequency.linearRampToValueAtTime(baseFreq, startTime + 0.25);
       gain.gain.setValueAtTime(0, startTime);
       gain.gain.linearRampToValueAtTime(0.35, startTime + 0.05);
       gain.gain.exponentialRampToValueAtTime(0.05, startTime + 0.3);
-      
-      osc.start(startTime);
-      osc.stop(startTime + 0.3);
-      vibLFO.start(startTime);
-      vibLFO.stop(startTime + 0.3);
+      osc.start(startTime); osc.stop(startTime + 0.3);
+      vibLFO.start(startTime); vibLFO.stop(startTime + 0.3);
     }
-    
   } else if (type === 'horn') {
-    // Klakson mobil - pi-iiip dengan harmonik yang jelas
-    // Main tone
     const osc1 = audioContext.createOscillator();
     const gain1 = audioContext.createGain();
-    osc1.type = 'square'; // Square wave untuk klakson tegas
-    osc1.connect(gain1);
-    gain1.connect(audioContext.destination);
-    
+    osc1.type = 'square';
+    osc1.connect(gain1); gain1.connect(audioContext.destination);
     osc1.frequency.setValueAtTime(800, now);
     gain1.gain.setValueAtTime(0, now);
     gain1.gain.linearRampToValueAtTime(0.4, now + 0.05);
     gain1.gain.exponentialRampToValueAtTime(0.08, now + 0.45);
-    
-    osc1.start(now);
-    osc1.stop(now + 0.45);
-    
-    // Secondary harmonic tone (lebih tinggi)
+    osc1.start(now); osc1.stop(now + 0.45);
+
     const osc2 = audioContext.createOscillator();
     const gain2 = audioContext.createGain();
     osc2.type = 'sine';
-    osc2.connect(gain2);
-    gain2.connect(audioContext.destination);
-    
+    osc2.connect(gain2); gain2.connect(audioContext.destination);
     osc2.frequency.setValueAtTime(1200, now + 0.05);
     gain2.gain.setValueAtTime(0, now + 0.05);
     gain2.gain.linearRampToValueAtTime(0.2, now + 0.1);
     gain2.gain.exponentialRampToValueAtTime(0.04, now + 0.45);
-    
-    osc2.start(now + 0.05);
-    osc2.stop(now + 0.45);
-    
+    osc2.start(now + 0.05); osc2.stop(now + 0.45);
+
   } else if (type === 'clap') {
-    // Tepuk tangan - attack tajam dengan frequency sweep
-    // 1. Initial burst (attack)
     const bufSize1 = audioContext.sampleRate * 0.02;
     const noiseBuf1 = audioContext.createBuffer(1, bufSize1, audioContext.sampleRate);
     const noiseData1 = noiseBuf1.getChannelData(0);
-    
     for (let i = 0; i < bufSize1; i++) {
       const envelope = Math.pow(1 - i / bufSize1, 2);
       noiseData1[i] = (Math.random() * 2 - 1) * envelope;
     }
-    
     const src1 = audioContext.createBufferSource();
     src1.buffer = noiseBuf1;
     const gain1 = audioContext.createGain();
-    src1.connect(gain1);
-    gain1.connect(audioContext.destination);
+    src1.connect(gain1); gain1.connect(audioContext.destination);
     gain1.gain.setValueAtTime(0.5, now);
     gain1.gain.exponentialRampToValueAtTime(0.02, now + 0.02);
     src1.start(now);
-    
-    // 2. Body dengan pitch
+
     const osc = audioContext.createOscillator();
     const gain2 = audioContext.createGain();
     osc.type = 'triangle';
-    osc.connect(gain2);
-    gain2.connect(audioContext.destination);
-    
+    osc.connect(gain2); gain2.connect(audioContext.destination);
     osc.frequency.setValueAtTime(200, now + 0.02);
     osc.frequency.linearRampToValueAtTime(100, now + 0.08);
-    
     gain2.gain.setValueAtTime(0.15, now + 0.02);
     gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
-    
-    osc.start(now + 0.02);
-    osc.stop(now + 0.08);
-    
+    osc.start(now + 0.02); osc.stop(now + 0.08);
+
   } else if (type === 'wave') {
-    // Ombak laut - rolling waves dengan multiple layers
     const waveLayerFreqs = [
       { freq: 60, dur: 2.0, vol: 0.25 },
       { freq: 110, dur: 2.0, vol: 0.15 },
       { freq: 180, dur: 2.0, vol: 0.1 },
       { freq: 280, dur: 2.0, vol: 0.08 },
     ];
-    
     waveLayerFreqs.forEach(layer => {
       const osc = audioContext.createOscillator();
       const gain = audioContext.createGain();
-      
       osc.type = 'sine';
-      osc.connect(gain);
-      gain.connect(audioContext.destination);
-      
-      // Frequency modulation untuk effect bergelombang
+      osc.connect(gain); gain.connect(audioContext.destination);
       const lfo = audioContext.createOscillator();
       const lfoGain = audioContext.createGain();
       lfo.type = 'sine';
-      lfo.frequency.value = 0.5; // Slow sweep
-      lfoGain.gain.value = layer.freq * 0.3; // Modulation depth
-      
+      lfo.frequency.value = 0.5;
+      lfoGain.gain.value = layer.freq * 0.3;
       osc.frequency.setValueAtTime(layer.freq, now);
-      lfo.connect(lfoGain);
-      lfoGain.connect(osc.frequency);
-      
-      // Smooth envelope
+      lfo.connect(lfoGain); lfoGain.connect(osc.frequency);
       gain.gain.setValueAtTime(0, now);
       gain.gain.linearRampToValueAtTime(layer.vol, now + 0.3);
       gain.gain.linearRampToValueAtTime(layer.vol * 0.6, now + 1.0);
       gain.gain.exponentialRampToValueAtTime(0.01, now + layer.dur);
-      
-      osc.start(now);
-      osc.stop(now + layer.dur);
-      lfo.start(now);
-      lfo.stop(now + layer.dur);
+      osc.start(now); osc.stop(now + layer.dur);
+      lfo.start(now); lfo.stop(now + layer.dur);
     });
   }
 }
 
-// ===== MEDIUM INFO =====
 function showMediumInfo(type) {
   const info = {
     gas: '💨 Di udara, bunyi merambat paling lambat karena partikelnya renggang. Contoh: kita berbicara sehari-hari!',
@@ -1006,7 +624,6 @@ function showMediumInfo(type) {
   el.classList.add('animate-bouncein');
 }
 
-// ===== EAR ANIMATION =====
 function playEarAnimation() {
   const anim = document.getElementById('earAnim');
   anim.classList.remove('hidden');
@@ -1021,13 +638,12 @@ function playEarAnimation() {
   });
 }
 
-// ===== QUIZ =====
 const quizData = [
   { q: 'Apa itu bunyi?', emoji: '🤔', opts: ['Getaran yang bisa didengar', 'Cahaya yang bisa dilihat', 'Angin yang bertiup', 'Air yang mengalir'], ans: 0 },
   { q: 'Apa yang menghasilkan bunyi?', emoji: '🎸', opts: ['Benda yang diam', 'Benda yang bergetar', 'Benda yang berwarna', 'Benda yang berat'], ans: 1 },
   { q: 'Bunyi merambat melalui apa saja?', emoji: '🌊', opts: ['Hanya udara', 'Udara dan air saja', 'Udara, air, dan benda padat', 'Hanya benda padat'], ans: 2 },
   { q: 'Di medium apa bunyi merambat paling cepat?', emoji: '🏃', opts: ['Gas (udara)', 'Cair (air)', 'Padat (besi/kayu)', 'Semua sama'], ans: 2 },
-  { q: 'Apa yang terjadi saat bunyi mengenai dinding gua?', emoji: '🏔️', opts: ['Bunyi hilang', 'Bunyi memantul (gema)', 'Bunyi berubah warna', 'Bunyi semakin pelan'], ans: 1 },
+  { q: 'Bunyi pantul yang terdengar jelas dan utuh setelah bunyi asli selesai disebut?', emoji: '🏔️', opts: ['Gaung', 'Gema', 'Resonansi', 'Desibel'], ans: 1 },
   { q: 'Mana bahan yang bisa menyerap bunyi?', emoji: '🧽', opts: ['Besi', 'Kaca', 'Busa/kain', 'Batu'], ans: 2 },
   { q: 'Bagian telinga yang bergetar saat bunyi masuk?', emoji: '👂', opts: ['Daun telinga', 'Gendang telinga', 'Rumah siput', 'Saraf pendengaran'], ans: 1 },
   { q: 'Cara menjaga kesehatan telinga yang benar?', emoji: '❤️', opts: ['Dengar musik keras', 'Volume sedang, istirahat telinga', 'Pakai headset 24 jam', 'Colok telinga dengan pensil'], ans: 1 },
@@ -1054,7 +670,7 @@ function renderQuiz() {
 
   q.opts.forEach((opt, i) => {
     const btn = document.createElement('button');
-    btn.className = 'quiz-btn bg-white border-2 border-gray-200 rounded-2xl p-4 text-left font-bold text-gray-700 hover:border-sky1 hover:bg-blue-50';
+    btn.className = 'quiz-btn bg-white border-2 border-gray-200 rounded-2xl p-4 text-left font-bold text-gray-700 hover:border-sky1 hover:bg-blue-50 text-lg';
     btn.textContent = `${String.fromCharCode(65 + i)}. ${opt}`;
     btn.onclick = () => checkAnswer(i, btn);
     optContainer.appendChild(btn);
@@ -1092,11 +708,7 @@ function checkAnswer(selected, btn) {
 
 function nextQuestion() {
   currentQ++;
-  if (currentQ >= quizData.length) {
-    showResult();
-  } else {
-    renderQuiz();
-  }
+  if (currentQ >= quizData.length) showResult(); else renderQuiz();
 }
 
 function showResult() {
@@ -1127,13 +739,8 @@ function showResult() {
   }
 }
 
-function restartQuiz() {
-  currentQ = 0;
-  score = 0;
-  renderQuiz();
-}
+function restartQuiz() { currentQ = 0; score = 0; renderQuiz(); }
 
-// ===== ABSORBER GAME =====
 const absorbers = [
   { name: 'Busa', emoji: '🧽', absorbs: true },
   { name: 'Besi', emoji: '🔩', absorbs: false },
@@ -1162,7 +769,6 @@ function toggleAbsorber(i, div) {
   const fb = document.getElementById('absorberFeedback');
   const fbText = document.getElementById('absorberFeedbackText');
   fb.classList.remove('hidden');
-
   if (item.absorbs) {
     div.classList.add('border-green-500', 'bg-green-50');
     div.classList.remove('border-gray-200');
@@ -1180,14 +786,11 @@ function toggleAbsorber(i, div) {
   }
 }
 
-// ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   renderQuiz();
   initAbsorbers();
-  applyConfig(defaultConfig);
-  lucide.createIcons();
 });
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9eebded8235e0a12',t:'MTc3NjYwMTMwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
